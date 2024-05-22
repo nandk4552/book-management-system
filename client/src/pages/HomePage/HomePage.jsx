@@ -74,6 +74,7 @@ const HomePage = () => {
           value={searchTerm}
           onChange={handleSearch}
           style={{ width: 200 }}
+          className="mx-3"
         />
         <Dropdown overlay={menu}>
           <Button>

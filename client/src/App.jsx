@@ -10,6 +10,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import Login from "./pages/Login/Login";
 import Register from "./pages/Register/Register";
 import CustomerPage from "./pages/UsersPage/UsersPage";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 function App() {
   return (
     <>
@@ -41,6 +42,9 @@ function App() {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          {/* if non of the above routes doesnot work we go to pagenotfound component page */}
+          <Route path="/*" element={<PageNotFound />} />
         </Routes>
       </Router>
     </>
