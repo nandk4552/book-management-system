@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
-app.get("/server", (req, res) => {
+app.get("/", (req, res) => {
   return res
     .status(200)
     .send("<h1>Welcome to Book Management System Server</h1>");
@@ -32,15 +32,6 @@ app.use("/api/v1/auth", require("./routes/authRoutes"));
 app.use("/api/v1/user", require("./routes/userRoutes"));
 // book routes
 app.use("/api/v1/books", require("./routes/bookRoutes"));
-
-// Serve static files from the "dist" directory
-const dir = path.resolve(); // Ensure this is declared only once
-app.use(express.static(path.join(dir, "client", "dist")));
-
-// All other routes should serve the index.html file
-app.get("*", (req, res) => {
-  res.sendFile(path.join(dir, "client", "dist", "index.html"));
-});
 
 //PORT
 const PORT = process.env.PORT || 8080;
