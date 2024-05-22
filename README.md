@@ -79,10 +79,10 @@ implemented the following features for additional points:
 ## Task Submission
 
 Provided a links to postman API used, Live project links and my GitHub repository containing the source code for both the front-end and back-end. Additionally, include instructions on how to set up and run the application locally.
-Frontend Link: https://b00kflow.netlify.app/
-Backend Link: https://book-management-system-silk.vercel.app/
-GitHub Link: https://github.com/nandk4552/book-management-system
-POSTMAN API's: https://www.postman.com/grey-station-125149-1/workspace/claw-full-stack-internship-nandk4552-gmail-com/collection/21207467-008baac2-f8ff-497b-b6ac-4a9354f182ba?action=share&creator=21207467
+- Frontend Link: https://b00kflow.netlify.app/
+- Backend Link: https://book-management-system-silk.vercel.app/
+- GitHub Link: https://github.com/nandk4552/book-management-system
+- POSTMAN API's: https://www.postman.com/grey-station-125149-1/workspace/claw-full-stack-internship-nandk4552-gmail-com/collection/21207467-008baac2-f8ff-497b-b6ac-4a9354f182ba?action=share&creator=21207467
 
 ## Contact Details
 ```
