@@ -1,0 +1,75 @@
+.ant-layout-has-sider {
+  padding: 0.2rem !important;
+}
+.ant-layout-sider-children {
+  height: 99vh !important;
+}
+
+.ant-layout-sider {
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.8rem !important;
+  margin-top: 0.3rem !important;
+}
+
+.ant-menu {
+  border-radius: 1rem;
+}
+.ant-icon svg {
+  font-size: 1.5rem !important;
+}
+
+.ant-layout-header {
+  background-color: #fff !important;
+  box-shadow: 0 0 3px #ccc;
+  border-radius: 0.5rem;
+  margin: 0.3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.ant-layout-header .cart-item {
+  padding-left: 1.2rem;
+  padding-right: 1.5rem;
+  cursor: pointer;
+}
+
+.ant-layout-header .cart-item p {
+  margin-top: 1rem;
+  font-weight: bold;
+}
+.ant-layout-header .cart-item svg {
+  font-size: 1.5rem;
+}
+
+.demo-logo-vertical {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+.ant-menu-title-content,
+.ant-menu-title-content a {
+  text-decoration: none !important;
+  font-size: 1.2rem !important;
+  font-weight: 600;
+}
+
+.ant-layout-content {
+  margin: 0.3rem !important;
+  background-color: #fff !important;
+  box-shadow: 0 0 3px #ccc;
+  overflow: auto;
+}
+
+.ant-layout {
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+@media (min-width: 768px) {
+  .demo-logo-vertical  {
+    width: ;
+  }
+}
