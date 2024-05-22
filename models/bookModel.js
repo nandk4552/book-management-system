@@ -22,6 +22,10 @@ const bookSchema = new mongoose.Schema({
     default:
       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2sLZifBMeDR6ftxIUzgqWxoeAfJnwl5GeZw&s",
   },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Book", bookSchema);

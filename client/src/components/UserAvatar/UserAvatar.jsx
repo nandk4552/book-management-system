@@ -47,7 +47,7 @@ const UserAvatar = () => {
         onClick={handleAvatarClick}
       />
       <Modal
-        title="User Details"
+        title="User Profile"
         open={isModalVisible}
         onOk={handleModalClose}
         onCancel={handleModalClose}
@@ -66,12 +66,6 @@ const UserAvatar = () => {
             <p>
               <strong>User Type:</strong> {userData.usertype}
             </p>
-            {/* <img
-              src={userData.profile}
-              alt={userData.name}
-              height="60"
-              width="60"
-            /> */}
           </div>
         )}
       </Modal>

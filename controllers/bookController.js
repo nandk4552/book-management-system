@@ -27,6 +27,33 @@ const getAllBooksController = async (req, res) => {
     });
   }
 };
+// get books created by user from db
+const getAllBooksByUserIDController = async (req, res) => {
+  try {
+    // getting  all the books created by user
+    const books = await bookModel.find({ user: req.body.id });
+    // validation whether books exist or not
+    if (!books) {
+      return res.status(404).send({
+        success: false,
+        message: "Books not found",
+      });
+    }
+    //returning all the books
+    return res.status(200).send({
+      success: true,
+      message: "All books fetched successfully",
+      books,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error in get all books API",
+      error,
+    });
+  }
+};
 
 //get book by id controller
 const getBookByIDController = async (req, res) => {
@@ -68,9 +95,10 @@ const getBookByIDController = async (req, res) => {
 const createBookController = async (req, res) => {
   try {
     // getting all the required info from the user form
+    const user = req.body.id;
     const { title, author, genre, yearPublished, image } = req.body;
     //validating the info
-    if (!title || !author || !genre || !yearPublished) {
+    if (!title || !author || !genre || !yearPublished || !user) {
       return res.status(404).send({
         success: false,
         message: "All fields are required",
@@ -83,6 +111,7 @@ const createBookController = async (req, res) => {
       genre,
       yearPublished,
       image,
+      user,
     });
     //saving the new book to the db
     await newBook.save();
@@ -194,15 +223,12 @@ const deleteBookController = async (req, res) => {
 const getGenresController = async (req, res) => {
   try {
     // Use the find method to fetch all books
-    const books = await bookModel.find({});
-    console.log("Books: " + books);
+    const books = await bookModel.find({ user: req.body.id });
     // Extract genre names from the books
     const genres = books.map((book) => book.genre);
-    console.log("Genres:" + genres);
 
     // Use Set to get unique genre names
     const uniqueGenres = [...new Set(genres)];
-    console.log("u Genres:" + uniqueGenres);
     res.status(200).send({
       success: true,
       uniqueGenres,
@@ -218,7 +244,7 @@ const getGenresController = async (req, res) => {
 };
 const getAuthorsController = async (req, res) => {
   try {
-    const books = await bookModel.find({});
+    const books = await bookModel.find({ user: req.body.id });
 
     const authors = books.map((book) => book.author);
 
@@ -239,7 +265,7 @@ const getAuthorsController = async (req, res) => {
 
 const getTitlesController = async (req, res) => {
   try {
-    const books = await bookModel.find({});
+    const books = await bookModel.find({ user: req.body.id });
 
     const titles = books.map((book) => book.title);
 
@@ -267,4 +293,5 @@ module.exports = {
   getGenresController,
   getAuthorsController,
   getTitlesController,
+  getAllBooksByUserIDController,
 };

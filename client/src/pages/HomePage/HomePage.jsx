@@ -1,31 +1,19 @@
-import { Col, Row } from "antd";
+import { DownOutlined, UserOutlined } from "@ant-design/icons";
+import { Button, Col, Dropdown, Input, Menu, Row, Space } from "antd";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import BookList from "../../components/BookList/BookList.jsx";
-import "./HomePage.css";
 import DefaultLayout from "../../components/DefaultLayout/DefaultLayout.jsx";
+import "./HomePage.css";
+
 const HomePage = () => {
   const dispatch = useDispatch();
   const [booksData, setBooksData] = useState([]);
-  // const [selectedCatgory, setSelectedCatgory] = useState("drinks");
-  // const categories = [
-  //   {
-  //     name: "drinks",
-  //     imageUrl:
-  //       "https://assets.bonappetit.com/photos/61191afbd8418d03d607a3ed/1:1/w_1129,h_1129,c_limit/Blue%20Drink-Silver%20Factory-01.jpg",
-  //   },
-  //   {
-  //     name: "rice",
-  //     imageUrl:
-  //       "https://static.vecteezy.com/system/resources/previews/028/144/564/original/rice-in-a-bowl-cartoon-illustration-rice-food-flat-icon-outline-vector.jpg",
-  //   },
-  //   {
-  //     name: "noodles",
-  //     imageUrl:
-  //       "https://i.pinimg.com/736x/63/a8/b5/63a8b5b0bde089a07e0686eb7b5327bf.jpg",
-  //   },
-  // ];
+  // filter and search states
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState(null);
+  const [genres, setGenres] = useState([]);
   const getAllBooks = async () => {
     try {
       dispatch({
@@ -38,6 +26,9 @@ const HomePage = () => {
         type: "rootReducer/hideLoading",
       });
       setBooksData(data.books);
+      // Extract unique genres from books
+      const uniqueGenres = [...new Set(data.books.map((book) => book.genre))];
+      setGenres(uniqueGenres);
     } catch (error) {
       console.log(error);
     }
@@ -45,33 +36,55 @@ const HomePage = () => {
   useEffect(() => {
     getAllBooks();
   }, []);
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleMenuClick = (e) => {
+    if (e.key === "all") {
+      setSelectedGenre(null); // Clear the genre filter
+    } else {
+      setSelectedGenre(e.key);
+    }
+  };
+
+  const filteredBooks = booksData.filter((book) => {
+    return (
+      (selectedGenre ? book.genre === selectedGenre : true) &&
+      (searchTerm
+        ? book.title.toLowerCase().includes(searchTerm.toLowerCase())
+        : true)
+    );
+  });
+
+  const menu = (
+    <Menu onClick={handleMenuClick}>
+      <Menu.Item key="all">All Genres</Menu.Item> {/* Clear filter item */}
+      {genres.map((genre) => (
+        <Menu.Item key={genre}>{genre}</Menu.Item>
+      ))}
+    </Menu>
+  );
+
   return (
     <DefaultLayout>
-      {/* <div className="d-flex align-items-center justify-content-center ">
-        {categories.map((category) => (
-          <div
-            key={category.name}
-            className={`d-flex category ${
-              selectedCatgory === category.name && "category-active"
-            }`}
-            onClick={() => setSelectedCatgory(category.name)}
-          >
-            <h4 className="me-2">{category.name}</h4>
-            <img
-              src={category.imageUrl}
-              alt={category.name}
-              style={{
-                objectFit: "cover",
-                borderRadius: 10,
-                mixBlendMode: "multiply",
-                height: "30px",
-                width: "30px",
-              }}
-            />
-          </div>
-        ))}
-      </div> */}
-      <Row>
+      <div className="d-flex align-items-center justify-content-center mb-3">
+        <Input
+          placeholder="Search by book title"
+          value={searchTerm}
+          onChange={handleSearch}
+          style={{ width: 200 }}
+        />
+        <Dropdown overlay={menu}>
+          <Button>
+            <Space>
+              {selectedGenre || "Filter by Genre"}
+              <DownOutlined />
+            </Space>
+          </Button>
+        </Dropdown>
+      </div>
+      {/* <Row>
         {booksData
           // .filter((i) => i.category === selectedCatgory)
           .map((book, index) => (
@@ -86,6 +99,20 @@ const HomePage = () => {
               <BookList key={book?.id} book={book} />
             </Col>
           ))}
+      </Row> */}
+      <Row>
+        {filteredBooks?.map((book, index) => (
+          <Col
+            className="d-flex align-items-center justify-content-center my-3"
+            key={index}
+            xs={24}
+            lg={6}
+            md={12}
+            sm={12}
+          >
+            <BookList key={book?.id} book={book} />
+          </Col>
+        ))}
       </Row>
     </DefaultLayout>
   );

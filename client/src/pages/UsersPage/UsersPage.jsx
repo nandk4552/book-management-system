@@ -24,7 +24,6 @@ const UsersPage = () => {
         }
       );
 
-      console.log(data.users);
       dispatch({
         type: "rootReducer/hideLoading",
       });

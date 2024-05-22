@@ -8,6 +8,7 @@ const {
   getGenresController,
   getAuthorsController,
   getTitlesController,
+  getAllBooksByUserIDController,
 } = require("../controllers/bookController");
 const authMiddleware = require("../middlewares/authMiddleware");
 
@@ -15,6 +16,9 @@ const router = express.Router();
 
 //* GET ALL BOOKS || GET || /api/v1/books
 router.get("/", getAllBooksController);
+
+//* GET ALL BOOKS BY LOGGED IN USER ID || GET || /api/v1/books/get-by-user
+router.get("/get-by-user", authMiddleware, getAllBooksByUserIDController);
 
 //* GET BOOK BY ID || GET || /api/v1/books/:id
 router.get("/:id", getBookByIDController);

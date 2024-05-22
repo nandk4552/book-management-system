@@ -22,13 +22,17 @@ const BookPage = () => {
         type: "rootReducer/showLoading",
       });
       const { data } = await axios.get(
-        `${import.meta.env.VITE_SERVER}/api/v1/books/`
+        `${import.meta.env.VITE_SERVER}/api/v1/books/get-by-user`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       dispatch({
         type: "rootReducer/hideLoading",
       });
       setItemsData(data.books);
-      console.log(data.books);
     } catch (error) {
       dispatch({
         type: "rootReducer/hideLoading",
@@ -97,7 +101,7 @@ const BookPage = () => {
           text: title,
           value: title,
         }));
-        setTitlesFilters(filters  );
+        setTitlesFilters(filters);
       }
     } catch (error) {
       message.error("Failed to fetch titles");
@@ -175,7 +179,6 @@ const BookPage = () => {
   };
 
   const handleDelete = async (record) => {
-    console.log(record._id);
     try {
       dispatch({
         type: "rootReducer/showLoading",
@@ -236,7 +239,7 @@ const BookPage = () => {
       sorter: (a, b) => a.yearPublished - b.yearPublished,
     },
     {
-      title: "image",
+      title: "Image",
       dataIndex: "image",
       key: "image",
       render: (image, record) => (

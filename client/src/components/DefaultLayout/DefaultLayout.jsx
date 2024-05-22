@@ -39,7 +39,7 @@ const DefaultLayout = ({ children }) => {
           <img
             src="https://ik.imagekit.io/fhe9c5aen/download%20(1)_86TTaGDu0V.png?updatedAt=1716375754345"
             alt="BookFlow"
-            width={!collapsed ? `90` : `60`}
+            width={!collapsed ? `100` : `60`}
           />
         </div>
         <Menu
