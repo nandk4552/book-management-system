@@ -14,14 +14,26 @@ connectDB();
 
 // rest object
 const app = express();
-
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
 app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader("Access-Control-Max-Age", "1800");
+  res.setHeader("Access-Control-Allow-Headers", "content-type");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
+  );
   return res
     .status(200)
     .send("<h1>Welcome to Book Management System Server</h1>");
