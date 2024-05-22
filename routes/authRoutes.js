@@ -10,7 +10,7 @@ const router = express.Router();
 //* REGISTER || POST || api/v1/auth/register
 router.post("/register", registerController);
 
-//* REGISTER || POST ||  api/v1/auth/login
+//* LOGIN || POST ||  api/v1/auth/login
 router.post("/login", loginController);
 
 module.exports = router;
